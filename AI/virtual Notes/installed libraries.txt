@@ -1,0 +1,31 @@
+pip install pyttsx3
+pip install regex
+pip install datetime
+pip install SpeechRecognition
+pip install pyautogui
+pip install wikipedia-api
+pip install mysql-connector-python
+pip install appopener
+pip install pyaudio
+pip install jupyter
+nltk.download()          #then change link to https://www.nltk.org/nltk_data/ and download all using wifi only
+pip install pandas
+pip install numpy
+pip install scikit-learn
+pip install assemblyai
+pip install spacy
+pip install nltk
+python -m spacy download en_core_web_sm
+python -m spacy download xx_ent_wiki_sm
+pip install -U sentence-transformers
+pip install transformers
+pip install tk
+pip install fuzzywuzzy
+pip install difflib
+pip install openpyxl
+pip install pygame
+pip install keyboard
+pip install authomatic
+pip install pyperclip
+pip install Pillow
+pip install pywin32
