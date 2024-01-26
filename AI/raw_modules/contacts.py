@@ -6,9 +6,9 @@ from raw_modules.spttxt import commandeng
 import mysql.connector as myc
 from raw_modules.speak_func import speak
 import os
-from typing import Optional
+from typing import Optional, List, Union
 
-def get_all_aliases() -> Optional(list):
+def get_all_aliases() -> Optional[List[str]]:
     ''' get all alias name from database'''
     mydb = myc.connect(host='localhost', user='root', password='ryan', database='raw')
     cur = mydb.cursor()
@@ -23,7 +23,7 @@ def get_all_aliases() -> Optional(list):
     finally:
         mydb.close()
 
-def search_by_alias(alias_name_input: str) -> Optional(list):
+def search_by_alias(alias_name_input: str) -> Optional[List[Union[str,int]]]:
     '''search from database for alias name'''
     alias_list = get_all_aliases()
     if alias_list is None:

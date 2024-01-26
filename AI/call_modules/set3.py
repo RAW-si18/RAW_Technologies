@@ -1,16 +1,15 @@
-# Updated 23/1/24
+# Updated 26/1/24
 
-from raw_modules.speak_func import *
-from raw_modules.spttxt import *
-from raw_modules.int_search import *
-from raw_modules.opening_app import *
-from raw_modules.resume_cosmos import *
-from raw_modules.similar_sent import *
-from raw_modules.wikipedia_search import *
-import re
-from raw_modules.similar_word import *
-from raw_modules.set_alarm_func import *
-import threading
+from raw_modules.speak_func import speak
+from raw_modules.spttxt import commandeng
+from raw_modules.int_search import internet_search
+from raw_modules.opening_app import openapp
+from raw_modules.resume_cosmos import greet
+from raw_modules.similar_sent import cosine_sent
+from raw_modules.wikipedia_search import wikipedia
+from raw_modules.similar_word import match_word_func
+from raw_modules.set_alarm_func import set_alarm
+import threading, re
 
 def ch15_func(cmd: str) -> None:
     '''search on search engine'''

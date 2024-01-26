@@ -1,13 +1,13 @@
-# Updated 23/1/24
+# Updated 26/1/24
 
-from raw_modules.speak_func import *
-from raw_modules.spttxt import *
-from raw_modules.resume_cosmos import *
-from raw_modules.calen_clock import *
-from raw_modules.wikipedia_search import *
-from raw_modules.city_name import *
-from raw_modules.country_name import *
-from raw_modules.climate_update import *
+from raw_modules.speak_func import speak
+from raw_modules.spttxt import commandeng
+from raw_modules.resume_cosmos import intro_cosmos
+from raw_modules.calen_clock import calendar, clock
+from raw_modules.wikipedia_search import wikipedia
+from raw_modules.city_name import city_name_function
+from raw_modules.country_name import country_name_function
+from raw_modules.climate_update import get_weather
 
 def ch_1_func() -> None:
     '''shutdown'''

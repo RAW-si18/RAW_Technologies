@@ -1,12 +1,13 @@
-# Updated 23/1/24
+# Updated 26/1/24
 
-from raw_modules.speak_func import *
-from raw_modules.spttxt import *
-from raw_modules.extraction import *
-from raw_modules.extra_funcs import *
-from raw_modules.games import *
-from raw_modules.similar_sent import *
-from raw_modules.contacts import *
+from raw_modules.speak_func import speak
+from raw_modules.spttxt import commandeng
+from raw_modules.extraction import extract_email, extract_humdata, extract_phone
+from raw_modules.extra_funcs import webopen
+from raw_modules.games import guess_number_game
+from raw_modules.similar_sent import cosine_sent
+from raw_modules.contacts import get_all_aliases, search_by_alias, update_contact_fav, update_contact_emergency
+from raw_modules.similar_word import match_word_func
 
 def ch22_func() -> None:
     '''email extraction'''

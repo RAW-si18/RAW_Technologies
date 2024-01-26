@@ -3,9 +3,9 @@
 from raw_modules.similar_word import match_word_func
 from raw_modules.speak_func import speak
 import pandas as pd
-from typing import Optional
+from typing import Optional, Union, List
 
-def country_name_function(country_name: str) -> Optional(list):
+def country_name_function(country_name: str) -> Optional[List[Union[str, int]]]:
     '''country name from database'''
     df=pd.read_csv("H:\\AI\\resource_files\\country_codes.csv",encoding='latin1',header=0)
     country_name=match_word_func(country_name,df['country'])

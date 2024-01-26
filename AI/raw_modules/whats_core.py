@@ -13,12 +13,12 @@ from raw_modules.whats_exceptions import InternetException
 
 WIDTH, HEIGHT = size()
 
-# returns bool whether True or False
 def check_number(number: str) -> bool:
+    '''returns bool whether True or False'''
     return "+" in number or "_" in number
 
-# close tab according to the os system
 def close_tab_website(wait_time: int = 2) -> None:
+    '''close tab according to the os system'''
     time.sleep(wait_time)
     _system = system().lower() # Returns 'Windows', 'Linux', 'Darwin' (macOS), etc.
     if _system in ("windows", "linux"):
@@ -29,8 +29,8 @@ def close_tab_website(wait_time: int = 2) -> None:
         raise Warning(f"{_system} not supported!")
     press("enter")
 
-# click on text bar on screen (Dependent on updates by whatsapp)
 def findtextbox() -> None:
+    '''click on text bar on screen (Dependent on updates by whatsapp)'''
     location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\color_smile.png")
     try:
         moveTo(location[0] + 230, location[1] + location[3]/2)
@@ -45,8 +45,8 @@ def findtextbox() -> None:
             moveTo(location[0] + 230, location[1] + location[3]/2)
             click()
 
-# click on link button on screen (Dependent on updates by whatsapp)
 def find_link():
+    '''click on link button on screen (Dependent on updates by whatsapp)'''
     location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\color_link.png")
     try:
         moveTo(location[0] + 230, location[1] + location[3]/2)
@@ -61,8 +61,8 @@ def find_link():
             moveTo(location[0] + 230, location[1] + location[3]/2)
             click()
 
-# click on document button on screen (Dependent on updates by whatsapp)
 def find_document():
+    '''click on document button on screen (Dependent on updates by whatsapp)'''
     location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\color_document.png")
     try:
         moveTo(location[0] + 230, location[1] + location[3]/2)
@@ -77,8 +77,8 @@ def find_document():
             moveTo(location[0] + 230, location[1] + location[3]/2)
             click()
 
-# click on gallery button on screen (Dependent on updates by whatsapp)
 def find_photo_or_video():
+    '''click on gallery button on screen (Dependent on updates by whatsapp)'''
     location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\color_gallery.png")
     try:
         moveTo(location[0] + 230, location[1] + location[3]/2)
@@ -93,16 +93,16 @@ def find_photo_or_video():
             moveTo(location[0] + 230, location[1] + location[3]/2)
             click()
 
-# checking internet connection
 def check_connection() -> None:
+    '''checking internet connection'''
     try:
         requests.get("https://google.com", timeout=5)
     except requests.RequestException:
         speak("Sorry sir, disruption in internet connection")
         raise InternetException("Error while connecting to the Internet. Make sure you are connected to the Internet!")
 
-# search for the receiver
 def _web(receiver: str, message: str) -> None:
+    '''search for the receiver'''
     if check_number(number=receiver):
         open(
             "https://web.whatsapp.com/send?phone="
@@ -113,8 +113,8 @@ def _web(receiver: str, message: str) -> None:
     else:
         open("https://web.whatsapp.com/accept?code=" + receiver)
 
-# sending message on whatsapp
 def send_message(message: str, receiver: str, wait_time: int) -> None:
+    '''sending message on whatsapp'''
     _web(receiver=receiver, message=message)
     time.sleep(7)
     findtextbox()
@@ -145,8 +145,8 @@ def send_message(message: str, receiver: str, wait_time: int) -> None:
     time.sleep(2)
     press("enter")
 
-# send messages
 def send_message_list(message: list, receiver: str, wait_time: int) -> None:
+    '''send messages'''
     _web(receiver=receiver, message='')
     time.sleep(7)
     findtextbox()
@@ -156,8 +156,8 @@ def send_message_list(message: list, receiver: str, wait_time: int) -> None:
         time.sleep(2)
         press("enter")
 
-# copy image
 def copy_image(path: str) -> None:
+    '''copy image'''
     _system = system().lower()
     if _system == "linux":
         if pathlib.Path(path).suffix in (".PNG", ".png"):
@@ -190,8 +190,8 @@ def copy_image(path: str) -> None:
     else:
         raise Exception(f"Unsupported System: {_system}")
 
-# send image
 def send_image(path: str, caption: str, receiver: str, wait_time: int) -> None:
+    '''send image'''
     _web(message=caption, receiver=receiver)
     time.sleep(7)
     findtextbox()

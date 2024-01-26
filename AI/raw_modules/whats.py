@@ -1,4 +1,4 @@
-# Updated 23/1/24 (UPDATE NOT REQUIRED)
+# Updated 23/1/24
 
 import os
 import time
@@ -12,11 +12,12 @@ import keyboard
 import csv
 from typing import Union
 from raw_modules.speak_func import speak
-from raw_modules.whats_core import core, exceptions, log
-
+from raw_modules.whats_core import *
+from raw_modules.whats_exceptions import *
+from raw_modules.whats_log import *
 pg.FAILSAFE = False
 
-core.check_connection()
+check_connection()
 
 def sendwhatmsg_instantly(
         phone_no: str,
@@ -26,13 +27,13 @@ def sendwhatmsg_instantly(
         close_time: int = 2,
 ) -> None:
     """Send WhatsApp Message Instantly"""
-    if not core.check_number(number=phone_no):
+    if not check_number(number=phone_no):
         speak("Sorry sir but Country Code Missing in Phone Number!")
-        raise exceptions.CountryCodeException("Country Code Missing in Phone Number!")
+        raise CountryCodeException("Country Code Missing in Phone Number!")
     phone_no = phone_no.replace(" ", "")
     if not fullmatch(r"^\+?[0-9]{2,4}\s?[0-9]{9,15}", phone_no):
         speak("Invalid Phone Number.")
-        raise exceptions.InvalidPhoneNumber("Invalid Phone Number.")
+        raise InvalidPhoneNumber("Invalid Phone Number.")
     web.open(f"https://web.whatsapp.com/send?phone={phone_no}")
     time.sleep(wait_time)
     index = 0
@@ -53,9 +54,9 @@ def sendwhatmsg_instantly(
     time.sleep(2)
     pg.press("enter")
     speak("Whatsapp message sent successfully sir.")
-    log.log_message(receiver=phone_no, message=message)
+    log_message(receiver=phone_no, message=message)
     if tab_close:
-        core.close_tab(wait_time=close_time)
+        close_tab_website(wait_time=close_time)
 
 def sending_or_video_immediately(
         phone_no: str,
@@ -65,18 +66,18 @@ def sending_or_video_immediately(
         close_time: int = 3,
 ) -> None:
     """Send WhatsApp Message Instantly"""
-    if not core.check_number(number=phone_no):
+    if not check_number(number=phone_no):
         speak("Country Code Missing in Phone Number!")
-        raise exceptions.CountryCodeException("Country Code Missing in Phone Number!")
+        raise CountryCodeException("Country Code Missing in Phone Number!")
     phone_no = phone_no.replace(" ", "")
     if not fullmatch(r"^\+?[0-9]{2,4}\s?[0-9]{9,15}", phone_no):
         speak("Invalid Phone Number.")
-        raise exceptions.InvalidPhoneNumber("Invalid Phone Number.")
+        raise InvalidPhoneNumber("Invalid Phone Number.")
     web.open(f"https://web.whatsapp.com/send?phone={phone_no}")
     time.sleep(wait_time)
-    core.find_link()
+    find_link()
     time.sleep(1)
-    core.find_photo_or_video()
+    find_photo_or_video()
     pyperclip.copy(os.path.abspath(path))
     time.sleep(1)
     keyboard.press("ctrl")
@@ -91,7 +92,7 @@ def sending_or_video_immediately(
     keyboard.release("enter")
     speak("Sent successfully sir.")
     if tab_close:
-        core.close_tab(wait_time=close_time)
+        close_tab_website(wait_time=close_time)
 
 def sendwhatdoc_immediately(
         phone_no: str,
@@ -101,18 +102,18 @@ def sendwhatdoc_immediately(
         close_time: int = 3,
 ) -> None:
     """Send WhatsApp Message Instantly"""
-    if not core.check_number(number=phone_no):
+    if not check_number(number=phone_no):
         speak("Country Code Missing in Phone Number!")
-        raise exceptions.CountryCodeException("Country Code Missing in Phone Number!")
+        raise CountryCodeException("Country Code Missing in Phone Number!")
     phone_no = phone_no.replace(" ", "")
     if not fullmatch(r"^\+?[0-9]{2,4}\s?[0-9]{9,15}", phone_no):
         speak("Invalid Phone Number.")
-        raise exceptions.InvalidPhoneNumber("Invalid Phone Number.")
+        raise InvalidPhoneNumber("Invalid Phone Number.")
     web.open(f"https://web.whatsapp.com/send?phone={phone_no}")
     time.sleep(wait_time)
-    core.find_link()
+    find_link()
     time.sleep(1)
-    core.find_document()
+    find_document()
     pyperclip.copy(os.path.abspath(path))
     time.sleep(1)
     keyboard.press("ctrl")
@@ -127,7 +128,7 @@ def sendwhatdoc_immediately(
     keyboard.release("enter")
     speak("Document sent successfully.")
     if tab_close:
-        core.close_tab(wait_time=close_time)
+        close_tab_website(wait_time=close_time)
 
 def sendwhatmsg(
         phone_no: str,
@@ -139,11 +140,11 @@ def sendwhatmsg(
         close_time: int = 3,
 ) -> None:
     """Send a WhatsApp Message at a Certain Time"""
-    if not core.check_number(number=phone_no):
-        raise exceptions.CountryCodeException("Country Code Missing in Phone Number!")
+    if not check_number(number=phone_no):
+        raise CountryCodeException("Country Code Missing in Phone Number!")
     phone_no = phone_no.replace(" ", "")
     if not fullmatch(r'^\+?[0-9]{2,4}\s?[0-9]{9,15}', phone_no):
-        raise exceptions.InvalidPhoneNumber("Invalid Phone Number.")
+        raise InvalidPhoneNumber("Invalid Phone Number.")
     if time_hour not in range(25) or time_min not in range(60):
         raise Warning("Invalid Time Format!")
     current_time = time.localtime()
@@ -154,7 +155,7 @@ def sendwhatmsg(
         "%H:%M:%S",
     )
     if left_time.seconds < wait_time:
-        raise exceptions.CallTimeException(
+        raise CallTimeException(
             "Call Time must be Greater than Wait Time as WhatsApp Web takes some Time to Load!"
         )
     sleep_time = left_time.seconds - wait_time
@@ -163,13 +164,13 @@ def sendwhatmsg(
     )
     time.sleep(sleep_time)
     if isinstance(message, list):
-        core.send_message_list(message=message, receiver=phone_no, wait_time=wait_time)
+        send_message_list(message=message, receiver=phone_no, wait_time=wait_time)
     else:
-        core.send_message(message=message, receiver=phone_no, wait_time=wait_time)
-        log.log_message( receiver=phone_no, message=message)
+        send_message(message=message, receiver=phone_no, wait_time=wait_time)
+        log_message( receiver=phone_no, message=message)
     speak("Whatsapp message sent successfully.")
     if tab_close:
-        core.close_tab(wait_time=close_time)
+        close_tab_website(wait_time=close_time)
 
 def show_history():
     '''shows whatsapp history'''
@@ -213,16 +214,16 @@ def sendwhatmsg_to_group(
         "%H:%M:%S",
     )
     if left_time.seconds < wait_time:
-        raise exceptions.CallTimeException("Call Time must be Greater than Wait Time as WhatsApp Web takes some Time to Load!")
+        raise CallTimeException("Call Time must be Greater than Wait Time as WhatsApp Web takes some Time to Load!")
     sleep_time = left_time.seconds - wait_time
     speak(f"In {sleep_time} Seconds WhatsApp will open.")
     print(f"In {sleep_time} Seconds WhatsApp will open.")
     time.sleep(sleep_time)
-    core.send_message(message=message, receiver=group_id, wait_time=wait_time)
-    log.log_message(receiver=group_id, message=message)
+    send_message(message=message, receiver=group_id, wait_time=wait_time)
+    log_message(receiver=group_id, message=message)
     speak("Message sent successfully.")
     if tab_close:
-        core.close_tab(wait_time=close_time)
+        close_tab_website(wait_time=close_time)
 
 def sendwhatmsg_to_group_instantly(
         group_id: str,
@@ -233,10 +234,10 @@ def sendwhatmsg_to_group_instantly(
 ) -> None:
     """Send WhatsApp Message to a Group Instantly"""
     time.sleep(4)
-    core.send_message(message=message, receiver=group_id, wait_time=wait_time)
-    log.log_message(receiver=group_id, message=message)
+    send_message(message=message, receiver=group_id, wait_time=wait_time)
+    log_message(receiver=group_id, message=message)
     if tab_close:
-        core.close_tab(wait_time=close_time)
+        close_tab_website(wait_time=close_time)
 
 def sendwhatsmsg_to_all(
         phone_nos: List[str],
@@ -262,8 +263,8 @@ def sendwhats_image(
         close_time: int = 3,
 ) -> None:
     """Send Image to a WhatsApp Contact or Group at a Certain Time"""
-    if (not receiver.isalnum()) and (not core.check_number(number=receiver)):
-        raise exceptions.CountryCodeException("Country Code Missing in Phone Number!")
+    if (not receiver.isalnum()) and (not check_number(number=receiver)):
+        raise CountryCodeException("Country Code Missing in Phone Number!")
     current_time = time.localtime()
     left_time = datetime.strptime(
         f"{time_hour}:{time_min}:0", "%H:%M:%S"
@@ -272,14 +273,14 @@ def sendwhats_image(
         "%H:%M:%S",
     )
     if left_time.seconds < wait_time:
-        raise exceptions.CallTimeException("Call Time must be Greater than Wait Time as WhatsApp Web takes some Time to Load!")
+        raise CallTimeException("Call Time must be Greater than Wait Time as WhatsApp Web takes some Time to Load!")
     sleep_time = left_time.seconds - wait_time
     print(f"In {sleep_time} Seconds WhatsApp will open.")
     time.sleep(sleep_time)
-    core.send_image(path=img_path, caption=caption, receiver=receiver, wait_time=wait_time)
-    log.log_image(_time=current_time, path=img_path, receiver=receiver, caption=caption)
+    send_image(path=img_path, caption=caption, receiver=receiver, wait_time=wait_time)
+    log_image(_time=current_time, path=img_path, receiver=receiver, caption=caption)
     if tab_close:
-        core.close_tab(wait_time=close_time)
+        close_tab_website(wait_time=close_time)
 
 def open_web() -> bool:
     """Opens WhatsApp Web"""

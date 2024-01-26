@@ -1,4 +1,4 @@
-# Updated 23/1/24
+# Updated 26/1/24
 
 from raw_modules.spttxt import commandeng
 from raw_modules.similar_sent import cosine_sent
@@ -11,6 +11,8 @@ import csv
 
 def sleeping() -> None:
     '''sleep mode detects keyword'''
+    speak("Sleep mode activated sir!")
+    print("Sleep mode Activated !!")
     st_time=time.time()
     while True:
         command = commandeng(silent=True)

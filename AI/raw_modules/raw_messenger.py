@@ -1,16 +1,13 @@
-# UPDATED 23/1/24 (UPDATE NOT REQUIRED)
+# UPDATED 23/1/24
 
-import pyautogui ,re ,smtplib, requests
-import webbrowser
+import pyautogui ,re ,smtplib, requests, webbrowser, threading
 from email.message import EmailMessage
 from email.mime.text import MIMEText
-import threading
-from raw_modules.calen_clock import *
+from raw_modules.calen_clock import calendar,clock
 from raw_modules.speak_func import speak
 from raw_modules.contacts import search_by_alias
 from raw_modules.similar_sent import cosine_sent
 from raw_modules.whats import *
-from raw_modules.ascii_art import image_to_ascii_art
 
 def send_whatsapp_msg(alias_name: str,msg: str,hr: int,mint: int,ampm: str) -> None:
     '''send whatsapp message'''
@@ -61,11 +58,6 @@ def whatsapp_multiple_open(phone_list: list, msg: str, hr: int, mint: int) -> No
 def show_history_msg():
     speak("Showing history of whatsapp using Cosmos AI.")
     show_history()
-
-def image_ascii(path):
-    speak("Creating an Artistic Image to ASCII art.")
-    image_to_ascii_art(path)
-    speak("Created a small art for you sir.")
 
 def take_screenshot_pc():
     screenshot = pyautogui.screenshot()

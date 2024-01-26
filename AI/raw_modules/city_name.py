@@ -2,10 +2,9 @@
 
 from raw_modules.similar_word import match_word_func
 from raw_modules.speak_func import speak
-from typing import List
 import pandas as pd
 
-def city_name_function(city_name_input: str) -> List[str, int ,int, str, str, int]:
+def city_name_function(city_name_input: str) -> list:
     '''city name from database'''
     df=pd.read_csv(r"H:\AI\resource_files\city_codes.csv",encoding='latin1',header=0)
     city_name=match_word_func(city_name_input,df['city'])

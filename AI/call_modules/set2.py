@@ -1,10 +1,12 @@
-# Updated 23/1/24
+# Updated 26/1/24
 
-from raw_modules.speak_func import *
-from raw_modules.spttxt import *
-from raw_modules.contacts import *
-from raw_modules.remove_duplicate import *
-from raw_modules.country_name import *
+from raw_modules.speak_func import speak
+from raw_modules.spttxt import commandeng
+from raw_modules.contacts import get_all_aliases, search_names, contact_save, delete_contact_by_alias
+from raw_modules.contacts import update_contact_phone, update_alias, show_data_rci, show_whole_table
+from raw_modules.remove_duplicate import remove_duplicate_words
+from raw_modules.country_name import country_name_function
+from raw_modules.similar_word import match_word_func
 
 def ch7_func() -> None:
     '''display alias names'''

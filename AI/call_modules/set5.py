@@ -1,17 +1,18 @@
-# Updated 23/1/24
+# Updated 26/1/24
 
-from raw_modules.spttxt import *
-from raw_modules.speak_func import *
-from raw_modules.raw_messenger import *
-from raw_modules.contacts import *
-from raw_modules.calen_clock import *
-from raw_modules.spttxt import *
-from raw_modules.speak_func import *
-from raw_modules.raw_messenger import *
-from raw_modules.contacts import *
+from raw_modules.spttxt import commandeng
+from raw_modules.speak_func import speak
+from raw_modules.raw_messenger import send_whatsapp_msg, send_whatsapp_image, send_whatsapp_msg_toall
+from raw_modules.raw_messenger import show_history_msg, take_screenshot_pc
+from raw_modules.similar_sent import cosine_sent
+from raw_modules.contacts import get_all_aliases
+from raw_modules.calen_clock import clock
+from raw_modules.similar_word import match_word_func
+from raw_modules.ascii_art import image_to_ascii_art
 from typing import Optional
+import threading
 
-def func_for_set5_1() -> Optional(str):
+def func_for_set5_1() -> Optional[str]:
     '''helping function for whatsapp alias name'''
     all_alias=get_all_aliases()
     if all_alias is None:
@@ -222,6 +223,24 @@ def ch32_func(cmd: str) -> None:
             return
     if "professional" in cmd:
         msg = "Hello, this is Cosmos, representing Ryan's artificial intelligence. I am reaching out on behalf of Ryan.\n" + msg
-
     whatsapp_thread = threading.Thread(target=send_whatsapp_msg_toall, args=(msg_list, msg, hr, mint, ampm))
     whatsapp_thread.start()
+
+def ch33_func() -> None:
+    '''whatsapp message history'''
+    speak("Showing whatsapp message history.")
+    print('Message history: ')
+    show_history_msg()
+
+def ch34_func() -> None:
+    '''ascii art'''
+    speak("I may not be an expert in creating ASCII art, but let's give it a try!")
+    print("ASCII art")
+    path=input("Enter image path: ")
+    image_to_ascii_art(path)
+
+def ch35_func() -> None:
+    '''screenshot'''
+    speak("Taking a screenshot sir.")
+    take_screenshot_pc()
+    print("Screenshot saved at : (C:->Users->Admin->OneDrive->Pictures->Screenshot_by_Cosmos)")
