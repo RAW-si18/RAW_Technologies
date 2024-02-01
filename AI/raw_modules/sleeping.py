@@ -11,7 +11,6 @@ import csv
 
 def sleeping() -> None:
     '''sleep mode detects keyword'''
-    speak("Sleep mode activated sir!")
     print("Sleep mode Activated !!")
     st_time=time.time()
     while True:
@@ -32,7 +31,8 @@ def sleeping() -> None:
                 print(f"Error in data study: {e}")
             features = pd.read_csv(r"H:\AI\resource_files\features.csv")
             command_proper, match_perc = cosine_sent(command, features['features'])
-            if match_perc < 50:
+            if (match_perc < 50) or (command_proper=="cosmos, greet me"):
+                greet()
                 speak("Hmmm... Yes, sir. I'm at your service. What would you like me to assist you with?")
                 print("What would you like me to assist you with?")
                 command = commandeng()
@@ -45,7 +45,7 @@ def sleeping() -> None:
                 else:
                     speak("I'm sorry, sir; I'm not familiar with that task. However, if you'd like, I can help by searching for it on Google. Would you like me to do that for you?")
                     check = commandeng()
-                    check, match_c = cosine_sent(check, ['yes', 'no'])
+                    check,_ = cosine_sent(check, ['yes', 'no'])
                     if check == 'yes':
                         internet_search("google", command, "normal")
                     else:

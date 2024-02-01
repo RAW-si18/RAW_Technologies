@@ -8,7 +8,6 @@ pip install mysql-connector-python
 pip install appopener
 pip install pyaudio
 pip install jupyter
-nltk.download()          #then change link to https://www.nltk.org/nltk_data/ and download all using wifi only
 pip install pandas
 pip install numpy
 pip install scikit-learn

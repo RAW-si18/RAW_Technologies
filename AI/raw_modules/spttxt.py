@@ -15,7 +15,7 @@ def commandeng(silent=False) -> str:
             if silent==False:
                 speak("Listening...")
                 print("Listening...")
-            audio_data = recognizer.listen(source, timeout=3)
+            audio_data = recognizer.listen(source, timeout=3,  phrase_time_limit=10)
             with open(file_link, "wb") as file:
                 file.write(audio_data.get_wav_data())
             if silent==False:

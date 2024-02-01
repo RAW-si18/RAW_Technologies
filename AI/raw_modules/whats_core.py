@@ -31,8 +31,8 @@ def close_tab_website(wait_time: int = 2) -> None:
 
 def findtextbox() -> None:
     '''click on text bar on screen (Dependent on updates by whatsapp)'''
-    location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\color_smile.png")
     try:
+        location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\color_smile.png")
         moveTo(location[0] + 230, location[1] + location[3]/2)
         click()
     except Exception:
@@ -41,14 +41,17 @@ def findtextbox() -> None:
             moveTo(location[0] + 230, location[1] + location[3]/2)
             click()        
         except Exception:
-            location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\light_smile.png")
-            moveTo(location[0] + 230, location[1] + location[3]/2)
-            click()
+            try:
+                location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\light_smile.png")
+                moveTo(location[0] + 230, location[1] + location[3]/2)
+                click()
+            except Exception:
+                return
 
 def find_link():
     '''click on link button on screen (Dependent on updates by whatsapp)'''
-    location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\color_link.png")
     try:
+        location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\color_link.png")
         moveTo(location[0] + 230, location[1] + location[3]/2)
         click()
     except Exception:
@@ -57,14 +60,17 @@ def find_link():
             moveTo(location[0] + 230, location[1] + location[3]/2)
             click()        
         except Exception:
-            location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\light_link.png")
-            moveTo(location[0] + 230, location[1] + location[3]/2)
-            click()
+            try:
+                location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\light_link.png")
+                moveTo(location[0] + 230, location[1] + location[3]/2)
+                click()
+            except Exception:
+                return
 
 def find_document():
     '''click on document button on screen (Dependent on updates by whatsapp)'''
-    location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\color_document.png")
     try:
+        location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\color_document.png")
         moveTo(location[0] + 230, location[1] + location[3]/2)
         click()
     except Exception:
@@ -73,14 +79,17 @@ def find_document():
             moveTo(location[0] + 230, location[1] + location[3]/2)
             click()        
         except Exception:
-            location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\light_document.png")
-            moveTo(location[0] + 230, location[1] + location[3]/2)
-            click()
+            try:
+                location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\light_document.png")
+                moveTo(location[0] + 230, location[1] + location[3]/2)
+                click()
+            except Exception:
+                return
 
 def find_photo_or_video():
     '''click on gallery button on screen (Dependent on updates by whatsapp)'''
-    location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\color_gallery.png")
     try:
+        location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\color_gallery.png")
         moveTo(location[0] + 230, location[1] + location[3]/2)
         click()
     except Exception:
@@ -89,9 +98,12 @@ def find_photo_or_video():
             moveTo(location[0] + 230, location[1] + location[3]/2)
             click()        
         except Exception:
-            location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\light_gallery.png")
-            moveTo(location[0] + 230, location[1] + location[3]/2)
-            click()
+            try:
+                location = locateOnScreen(r"H:\AI\resource_files\whatsapp_automation\light_gallery.png")
+                moveTo(location[0] + 230, location[1] + location[3]/2)
+                click()
+            except Exception:
+                return
 
 def check_connection() -> None:
     '''checking internet connection'''
@@ -139,11 +151,9 @@ def send_message(message: str, receiver: str, wait_time: int) -> None:
             else:
                 typewrite(letter)
             index += 1
-        time.sleep(2)
-        press("enter")
-    findtextbox()
     time.sleep(2)
     press("enter")
+
 
 def send_message_list(message: list, receiver: str, wait_time: int) -> None:
     '''send messages'''

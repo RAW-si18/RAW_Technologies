@@ -13,7 +13,7 @@ from call_modules.set5 import *
 from call_modules.set6 import *
 
 if __name__=="__main__":
-    switch_on_msg()
+    # switch_on_msg()
 # MAIN FUNCTION
     while True:
         try:
@@ -55,8 +55,6 @@ if __name__=="__main__":
                     ch15_func(cmd)
                 elif choice==16: # open an app on desktop
                     ch16_func()
-                elif choice==17: # Greet me
-                    ch17_func()
                 elif choice==18: # Set an alarm
                     ch18_func(cmd)
                 elif choice==19: # Predict logic wise-similar sentence
@@ -101,7 +99,13 @@ if __name__=="__main__":
                     ch38_func()
                 elif choice==39: # Shutdown pc cancel
                     ch39_func()
+                elif choice==40: # hide text into image
+                    ch40_func()
+                elif choice==41: # unhide text from image
+                    ch41_func()
+                elif choice==42: # joke
+                    ch42_func()
                 else: # Extreme Bug case
                     ch_bug_func_1()
         except Exception as e:
-            ch_bug_func_2()
+            ch_bug_func_2(e)

@@ -4,8 +4,10 @@ from raw_modules.spttxt import commandeng
 from raw_modules.speak_func import speak
 from raw_modules.raw_messenger import sending_mail, playvideo_yt
 from raw_modules.pc_shutdown import shutdown_pc,cancel_shutdown_pc
+from raw_modules.steganography import image_hiding, image_unhide
 import getpass, threading, csv
 import pandas as pd
+from raw_modules.raw_jokes import get_joke
 
 def ch36_func() -> None:
     '''automate email'''
@@ -77,7 +79,7 @@ def ch_bug_func_1() -> None:
     print('Sudden outbreak shutdown initiated... ALERT!!')
     exit()
 
-def ch_bug_func_2() -> None:
+def ch_bug_func_2(e: str) -> None:
     '''minor bug error occured'''
     print("Error: ", e)
     speak("Sir, there seems to be an error in my programming, preventing the expected output. We are actively working to resolve this bug and anticipate a prompt solution.")
@@ -95,3 +97,26 @@ def ch_bug_func_2() -> None:
         print(f"Error in sending feedback: {e}")
     speak("Reschedule to sleep mode")
     return
+
+def ch40_func() -> None:
+    speak("Hiding text in an image")
+    print("Encryting text into image")
+    speak("enter image path")
+    st1=input("Image path: ")
+    speak("enter text path")
+    st2=input("Text path: ")
+    speak("Please input the name of the file you wish to use for the encrypted image.")
+    nam=input("Name: ")
+    image_hiding(st1,st2,nam)
+    print("Text hidden successfully.")
+
+def ch41_func() -> None:
+    speak("Raw decryption activated")
+    speak("enter image path")
+    st1=input("Image path: ")
+    txt=image_unhide(st1)
+    print("Decrypted text: \n\n")
+    print(txt)
+
+def ch42_func() -> None:
+    get_joke()

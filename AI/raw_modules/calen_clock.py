@@ -4,7 +4,7 @@ import datetime
 from typing import Tuple
 
 def calendar() -> Tuple[int, str, int, str]:
-    '''shows all the content of calendar'''
+    '''shows all the content of calendar date, month, year, day'''
     now= datetime.datetime.now()
     year= now.strftime('%Y')
     month= now.strftime('%B')
@@ -13,7 +13,7 @@ def calendar() -> Tuple[int, str, int, str]:
     return date, month, year, day
 
 def clock() -> Tuple[int, int, int, str]:
-    '''shows all the content of clock'''
+    '''shows all the content of clock hour,minute,sec,status'''
     now= datetime.datetime.now()
     currhour= now.strftime('%H')
     minute= now.strftime('%M')

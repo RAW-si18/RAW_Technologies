@@ -134,12 +134,12 @@ def greet() -> None:
     '''greetings'''
     hour,minute,_,status=clock()
     _, _, _, day=calendar()
-    if status == 'a.m.':
+    if status == 'am':
         speak('Good Morning sir')
         print('Good morning sir')
         print(f'Time: {hour}:{minute} {status}')
         speak(f'Sir, Have a great {day} Ahead')
-    elif status == 'p.m.':
+    elif status == 'pm':
         if hour < 6 or hour == 12:
             speak('Good Afternoon sir')
             print('Good Afternoon sir')

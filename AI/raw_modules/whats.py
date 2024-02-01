@@ -3,7 +3,7 @@
 import os
 import time
 import webbrowser as web
-from datetime import datetime
+import datetime
 from re import fullmatch
 from typing import List
 import pyperclip
@@ -136,39 +136,35 @@ def sendwhatmsg(
         time_hour: int,
         time_min: int,
         wait_time: int = 15,
-        tab_close: bool = False,
+        tab_close: bool = True,
         close_time: int = 3,
 ) -> None:
     """Send a WhatsApp Message at a Certain Time"""
-    if not check_number(number=phone_no):
-        raise CountryCodeException("Country Code Missing in Phone Number!")
+    if not check_number(phone_no):
+        raise ValueError("Invalid Phone Number!")
     phone_no = phone_no.replace(" ", "")
     if not fullmatch(r'^\+?[0-9]{2,4}\s?[0-9]{9,15}', phone_no):
-        raise InvalidPhoneNumber("Invalid Phone Number.")
-    if time_hour not in range(25) or time_min not in range(60):
-        raise Warning("Invalid Time Format!")
-    current_time = time.localtime()
-    left_time = datetime.strptime(
-        f"{time_hour}:{time_min}:0", "%H:%M:%S"
-    ) - datetime.strptime(
-        f"{current_time.tm_hour}:{current_time.tm_min}:{current_time.tm_sec}",
-        "%H:%M:%S",
-    )
-    if left_time.seconds < wait_time:
-        raise CallTimeException(
-            "Call Time must be Greater than Wait Time as WhatsApp Web takes some Time to Load!"
-        )
-    sleep_time = left_time.seconds - wait_time
-    print(
-        f"In {sleep_time} Seconds WhatsApp will open."
-    )
-    time.sleep(sleep_time)
+        raise ValueError("Invalid Phone Number.")
+    now = datetime.datetime.now()
+    current_hour = now.hour
+    current_minute = now.minute
+    time_diff_minutes = (time_hour * 60 + time_min) - (current_hour * 60 + current_minute)
+    if time_diff_minutes < 0:
+        time_diff_minutes += 24 * 60
+    seconds_diff = time_diff_minutes * 60
+    total_wait_time = seconds_diff - wait_time
+    if total_wait_time <= 0:
+        print("Time exceeded")
+        return
+    else:
+        print(f"In {total_wait_time-30} seconds WhatsApp will open.")
+        time.sleep(total_wait_time-30)
     if isinstance(message, list):
         send_message_list(message=message, receiver=phone_no, wait_time=wait_time)
     else:
         send_message(message=message, receiver=phone_no, wait_time=wait_time)
-        log_message( receiver=phone_no, message=message)
-    speak("Whatsapp message sent successfully.")
+        log_message(receiver=phone_no, message=message)
+    speak("WhatsApp message sent successfully.")
     if tab_close:
         close_tab_website(wait_time=close_time)
 
@@ -206,19 +202,23 @@ def sendwhatmsg_to_group(
     if time_hour not in range(25) or time_min not in range(60):
         speak("Invalid Time Format!")
         raise Warning("Invalid Time Format!")
-    current_time = time.localtime()
-    left_time = datetime.strptime(
-        f"{time_hour}:{time_min}:0", "%H:%M:%S"
-    ) - datetime.strptime(
-        f"{current_time.tm_hour}:{current_time.tm_min}:{current_time.tm_sec}",
-        "%H:%M:%S",
-    )
-    if left_time.seconds < wait_time:
-        raise CallTimeException("Call Time must be Greater than Wait Time as WhatsApp Web takes some Time to Load!")
-    sleep_time = left_time.seconds - wait_time
-    speak(f"In {sleep_time} Seconds WhatsApp will open.")
-    print(f"In {sleep_time} Seconds WhatsApp will open.")
-    time.sleep(sleep_time)
+    now = datetime.datetime.now()
+    current_hour = now.hour
+    current_minute = now.minute
+    if time_hour < current_hour or (time_hour == current_hour and time_min <= current_minute):
+        time_hour += 24
+    hours_diff = time_hour - current_hour
+    minutes_diff = time_min - current_minute
+    if minutes_diff < 0:
+        hours_diff -= 1
+        minutes_diff += 60
+    seconds_diff = hours_diff * 3600 + minutes_diff * 60
+    total_wait_time = seconds_diff - wait_time
+    if total_wait_time <= 0:
+        speak("Time exceeded")
+        print("Wait time exceeds or equals total time to wait!")
+    print(f"In {total_wait_time-30} Seconds WhatsApp will open.")
+    speak(f"In {total_wait_time-30} Seconds WhatsApp will open.")
     send_message(message=message, receiver=group_id, wait_time=wait_time)
     log_message(receiver=group_id, message=message)
     speak("Message sent successfully.")
@@ -265,20 +265,25 @@ def sendwhats_image(
     """Send Image to a WhatsApp Contact or Group at a Certain Time"""
     if (not receiver.isalnum()) and (not check_number(number=receiver)):
         raise CountryCodeException("Country Code Missing in Phone Number!")
-    current_time = time.localtime()
-    left_time = datetime.strptime(
-        f"{time_hour}:{time_min}:0", "%H:%M:%S"
-    ) - datetime.strptime(
-        f"{current_time.tm_hour}:{current_time.tm_min}:{current_time.tm_sec}",
-        "%H:%M:%S",
-    )
-    if left_time.seconds < wait_time:
-        raise CallTimeException("Call Time must be Greater than Wait Time as WhatsApp Web takes some Time to Load!")
-    sleep_time = left_time.seconds - wait_time
-    print(f"In {sleep_time} Seconds WhatsApp will open.")
-    time.sleep(sleep_time)
+    now = datetime.datetime.now()
+    current_hour = now.hour
+    current_minute = now.minute
+    if time_hour < current_hour or (time_hour == current_hour and time_min <= current_minute):
+        time_hour += 24
+    hours_diff = time_hour - current_hour
+    minutes_diff = time_min - current_minute
+    if minutes_diff < 0:
+        hours_diff -= 1
+        minutes_diff += 60
+    seconds_diff = hours_diff * 3600 + minutes_diff * 60
+    total_wait_time = seconds_diff - wait_time
+    if total_wait_time <= 0:
+        speak("Time exceeded")
+        print("Wait time exceeds or equals total time to wait!")
+    print(f"In {total_wait_time-30} Seconds WhatsApp will open.")
+    speak(f"In {total_wait_time-30} Seconds WhatsApp will open.")
     send_image(path=img_path, caption=caption, receiver=receiver, wait_time=wait_time)
-    log_image(_time=current_time, path=img_path, receiver=receiver, caption=caption)
+    log_image(path=img_path, receiver=receiver, caption=caption)
     if tab_close:
         close_tab_website(wait_time=close_time)
 

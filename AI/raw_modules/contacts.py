@@ -10,7 +10,7 @@ from typing import Optional, List, Union
 
 def get_all_aliases() -> Optional[List[str]]:
     ''' get all alias name from database'''
-    mydb = myc.connect(host='localhost', user='root', password='ryan', database='raw')
+    mydb = myc.connect(host='localhost', user='root', password='cosmos18', database='raw')
     cur = mydb.cursor()
     select_query = "SELECT alias FROM contacts"
     try:
@@ -59,7 +59,7 @@ def search_by_alias(alias_name_input: str) -> Optional[List[Union[str,int]]]:
             else:
                 speak("Apologies, sir. Please review the entire contact list and return later.")
                 return None
-    mydb = myc.connect(host='localhost', user='root', password='ryan', database='raw')
+    mydb = myc.connect(host='localhost', user='root', password='cosmos18', database='raw')
     cur = mydb.cursor()
     select_query = "SELECT * FROM contacts WHERE alias = %s"
     try:
@@ -84,7 +84,7 @@ def search_by_alias(alias_name_input: str) -> Optional[List[Union[str,int]]]:
 
 def search_names(first_name: str, last_name: str) -> None:
     '''search for first + last name'''
-    mydb = myc.connect(host='localhost', user='root', password='ryan', database='raw')
+    mydb = myc.connect(host='localhost', user='root', password='cosmos18', database='raw')
     cur = mydb.cursor()
     select_query = "SELECT first_name, last_name FROM contacts"
     try:
@@ -113,7 +113,7 @@ def search_names(first_name: str, last_name: str) -> None:
 
 def contact_save(f_name: str,l_name: str,country_code: int,ph_no: int,alias: str,fav_cont: int,emergency_cont: int) -> None:
     '''save contacts in database'''
-    mydb=myc.connect(host='localhost',user='root',password='ryan',database='raw')
+    mydb=myc.connect(host='localhost',user='root',password='cosmos18',database='raw')
     cur=mydb.cursor()
     insval="INSERT INTO contacts (first_name ,last_name ,country_code ,phone_number ,alias , is_favorite, is_emergency_contact) VALUES (%s,%s,%s,%s,%s,%s,%s)"
     vallist=(f_name,l_name,country_code,ph_no,alias,fav_cont,emergency_cont)
@@ -159,7 +159,7 @@ def delete_contact_by_alias(alias: str) -> None:
             return
         matched_alias = matched_alias[0]
     print(f"Alias: {matched_alias}")
-    mydb = myc.connect(host='localhost', user='root', password='ryan', database='raw')
+    mydb = myc.connect(host='localhost', user='root', password='cosmos18', database='raw')
     cur = mydb.cursor()
     try:
         delete_query = "DELETE FROM contacts WHERE alias = %s"
@@ -204,7 +204,7 @@ def update_contact_phone(alias: str, new_phone_number: int) -> None:
             return
         alias=alias[0]
     print(f"Alias name: {alias}")
-    mydb = myc.connect(host='localhost', user='root', password='ryan', database='raw')
+    mydb = myc.connect(host='localhost', user='root', password='cosmos18', database='raw')
     cur = mydb.cursor()
     update_query = "UPDATE contacts SET phone_number = %s WHERE alias = %s"
     try:
@@ -255,7 +255,7 @@ def update_alias(old_alias: str, new_alias: str) -> None:
         old_alias = alias_matches[0]
     print(f"Old Alias name: {old_alias}")
     print(f"New Alias name: {new_alias}")
-    mydb = myc.connect(host='localhost', user='root', password='ryan', database='raw')
+    mydb = myc.connect(host='localhost', user='root', password='cosmos18', database='raw')
     cur = mydb.cursor()
     update_query = "UPDATE contacts SET alias = %s WHERE alias = %s"
     try:
@@ -270,7 +270,7 @@ def update_alias(old_alias: str, new_alias: str) -> None:
 
 def show_data_rci(rci: int) -> None:
     '''show all data of a particular RAW CORPORATE ID'''
-    mydb = myc.connect(host='localhost', user='root', password='ryan', database='raw')
+    mydb = myc.connect(host='localhost', user='root', password='cosmos18', database='raw')
     cur = mydb.cursor()
     try:
         select_query = f"SELECT * FROM contacts WHERE contact_id={rci}"
@@ -291,7 +291,7 @@ def show_data_rci(rci: int) -> None:
         mydb.close()
 
 def show_whole_table() -> None:
-    mydb = myc.connect(host='localhost', user='root', password='ryan', database='raw')
+    mydb = myc.connect(host='localhost', user='root', password='cosmos18', database='raw')
     cur = mydb.cursor()
     try:
         select_query = "SELECT * FROM contacts"
@@ -344,7 +344,7 @@ def update_contact_fav(alias: str,fav_ch: str) -> None:
             return
         alias=alias[0]
     print(f"Alias name: {alias}")
-    mydb = myc.connect(host='localhost', user='root', password='ryan', database='raw')
+    mydb = myc.connect(host='localhost', user='root', password='cosmos18', database='raw')
     cur = mydb.cursor()
     fav_ch=match_word_func(fav_ch,['yes','no'])
     if not fav_ch:
@@ -419,7 +419,7 @@ def update_contact_emergency(alias: str,em_ch: str) -> None:
             return
         alias=alias[0]
     print(f"Alias name: {alias}")
-    mydb = myc.connect(host='localhost', user='root', password='ryan', database='raw')
+    mydb = myc.connect(host='localhost', user='root', password='cosmos18', database='raw')
     cur = mydb.cursor()
     em_ch=match_word_func(em_ch,['yes','no'])
     if not em_ch:
