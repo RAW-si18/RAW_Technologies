@@ -28,3 +28,5 @@ pip install authomatic
 pip install pyperclip
 pip install Pillow
 pip install pywin32
+pip install google-api-python-client
+pip install html2text

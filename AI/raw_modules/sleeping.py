@@ -6,8 +6,7 @@ from raw_modules.int_search import internet_search
 from raw_modules.resume_cosmos import greet
 from raw_modules.speak_func import speak
 import pandas as pd
-import time
-import csv
+import time, re, csv
 
 def sleeping() -> None:
     '''sleep mode detects keyword'''
@@ -29,10 +28,10 @@ def sleeping() -> None:
                     writer.writerows([[index,command]])
             except Exception as e:
                 print(f"Error in data study: {e}")
+            command = re.sub(r'^.*?\bcosmos\b\s*', '', command, count=1).strip()
             features = pd.read_csv(r"H:\AI\resource_files\features.csv")
             command_proper, match_perc = cosine_sent(command, features['features'])
-            if (match_perc < 50) or (command_proper=="cosmos, greet me"):
-                greet()
+            if (match_perc < 50) or ((features.loc[features["features"] == command_proper, 'index'].iloc[0])==0):
                 speak("Hmmm... Yes, sir. I'm at your service. What would you like me to assist you with?")
                 print("What would you like me to assist you with?")
                 command = commandeng()
