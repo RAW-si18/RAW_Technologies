@@ -1,8 +1,0 @@
-Index,Error
-1,'NoneType' object has no attribute 'close'
-2,'NoneType' object has no attribute 'close'
-3,1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
-4,2003 (HY000): Can't connect to MySQL server on 'localhost:3306' (10061)
-5,2003 (HY000): Can't connect to MySQL server on 'localhost:3306' (10061)
-6,2003 (HY000): Can't connect to MySQL server on 'localhost:3306' (10061)
-7,2003 (HY000): Can't connect to MySQL server on 'localhost:3306' (10061)
